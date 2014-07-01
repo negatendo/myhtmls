@@ -4,7 +4,7 @@
 <title>butt.systems</title>
 <style type="text/css">
 #butts{ margin: auto; text-align: center; font-size: 8em; margin-top: 1em; }
-#poop{ position: absolute; margin:auto; text-align: center }
+#poop{ position: relative; }
 .cheek { z-index: -1; background-color: red }
 </style>
 
@@ -13,7 +13,7 @@
 <div id="butts">
 )<span class="cheek">)</span> <span id="poop">&lt;&gt;</span> <span class="cheek">(</span>(
   <div id="button">
-    <button onclick="tl.play();return false">Start Butt System</button>
+    <input id="startstop" type="button" onclick="tl.startstop();return false" value="Start Butt System"></input>
   </div>
 </div>
 <script type="text/javascript">
@@ -64,6 +64,23 @@ function loopPoop()
   this.pause = function()
   {
     playing = false;  // stop after next frame
+  }
+
+  this.startstop = function()
+  {
+    button = document.getElementById('startstop');
+    if (playing)
+    {
+      console.log('pausing');
+      this.pause();
+      button.value = 'Start Butt System';
+    }
+    else
+    {
+      console.log('playing');
+      this.play();
+      button.value = 'Stop Butt System';
+    }
   }
 }
 tl = new loopPoop();
