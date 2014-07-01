@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<title>internet</title>
+<style type="text/css">
+#chips { background-image: url('https://puuuuuuthtml.s3.amazonaws.com/chips.png'); height: 846px; width: 616px; background-color: white; margin: auto; }
+#surf { background-image: url('https://puuuuuuthtml.s3.amazonaws.com/surf.gif'); height: 240px; width: 320px; margin: auto; }
+#internet { width: 100%; font-size: 70px; font-weight: bold; color: #222; text-align: center; padding-top: 200px; font-family: Courier, 'Courier New', sans-serif; }
+</style>
+</head>
+<body>
+<div id="chips">
+<div id="internet">Internet</div>
+<div id="surf"></div>
+</div>
+<script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<script src="https://puuuuuuthtml.s3.amazonaws.com/jquery.color-2.1.2.min.js"></script>
+<script type="text/javascript">
+function spectrum() 
+{
+    console.log('changing');
+    var hue = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+    console.log(hue);
+    $('#internet').animate( { color: hue }, 1000);
+}
+setInterval(spectrum,1000);
+</script>
+</body>
