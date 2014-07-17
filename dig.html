@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="progress" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <title></title>
+    <style type="text/css">
+        html, body {
+            background : #B3907A;
+            width : 100%;
+            height : 100%;
+        }
+        div.leftCol {
+          text-align: right;
+        }
+        div.container {
+          height: 100%;
+        }
+        div#hole {
+          height: 100%;
+          padding-top: 0;
+          /*background-color: #000;*/
+          overflow: scroll;
+        }
+        div#dugOut {
+          background-color: #000;
+          height: 0px;
+        }
+        button#botUpgrade {
+          display: none;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="col-md-4 leftCol">
+        <h1>Dig A Hole 3: The Upgrading</h1>
+        <p class="lead">Use this document as a way to quickly dig a hole and earn cryptocurrency.</p>
+        <button type="button" class="btn btn-default pull-right" onclick="dig(1)">Dig</button>
+        <button type="button" id="activateBotButton" class="btn btn-default pull-right" onclick="activateBot()">Activate Bot</button><br><br>
+        <button type="button" class="btn btn-default pull-right" id="botUpgrade" onclick="upgradeBot()"></button>
+      </div>
+
+      <div class="col-md-4" id="hole">
+        <div id="dugOut"> </div>
+      </div>
+
+      <div class="col-md-4 rightCol">
+        <h3>This hole is <span id="holeDeep">0</span> feet deep</h3>
+        <p>You have <span id="holeBux">0</span> holebux.</p>
+      </div>
+
+    </div><!-- /.container -->
+
+    <script type="text/javascript">
+      var holeDepth = 0;
+      var holeBux = 0;
+      
+      //basic slow robot, or "bot" as the kids call 'em
+      var buttonActivateBot = document.getElementById('activateBotButton');
+      var botTimer;
+      var botActive = 0;
+      var botSpeed = 3000;
+      var botUpgrades = 1;
+      
+      function dig(depth) {
+        if (!depth) depth = 1;
+        console.log("Digging - depth: " + depth);
+        holeDepth += Math.round(depth);
+        document.getElementById("dugOut").style.height = Math.round(holeDepth/10) + 'px';;
+        document.getElementById("holeDeep").innerHTML = holeDepth;
+
+        if (holeDepth % 2 === 0) {
+          holeBux++;
+          document.getElementById("holeBux").innerHTML = holeBux.toFixed(2);
+        }
+        if (holeBux > upgradeCost()) {
+          document.getElementById("botUpgrade").innerHTML = 'Upgrade Bot: ' + upgradeCost().toFixed(2) + ' holebux';
+          document.getElementById("botUpgrade").style.display="inline"
+        }
+      }
+
+      function upgradeCost() {
+        return 5 * Math.pow(1.25, botUpgrades)
+      }
+
+      function activateBot() {
+         if (!botActive) {
+            console.log("Activating bot");
+            botTimer = window.setInterval(function() { dig() }, botSpeed); //TODO: some kind of turn timer?
+            botActive = true;
+            buttonActivateBot.innerHTML = "Deactivate Bot";
+         } else {
+            console.log("Deactivating bot");
+            clearInterval(botTimer);
+            botActive = false;
+            buttonActivateBot.innerHTML = "Activate Bot";
+        }
+      }
+
+      function upgradeBot() {
+        holeBux -= upgradeCost();
+        document.getElementById("holeBux").innerHTML = holeBux.toFixed(2);
+        botSpeed = Math.round(botSpeed/2);
+        console.log('Now digging every ' + botSpeed + 'ms');
+        botUpgrades++;
+        document.getElementById("botUpgrade").style.display="none"
+      }
+    </script>
+
+  </body>
+</html>

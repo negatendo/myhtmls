@@ -3,15 +3,19 @@
 <head>
 <title>butt.systems</title>
 <style type="text/css">
+body { background-color: white; }
 #butts{ margin: auto; text-align: center; font-size: 8em; margin-top: 1em; }
-#poop{ position: relative; }
-.cheek { z-index: -1; background-color: red }
+.fore-cheek { z-index: 10; background-color: white; position: relative; } 
+.fore-cheek.left  { padding-left: 300px; position-left: -300px; }
+.fore-cheek.right { padding-right: 300px; position-right: -300px; }
+#poop { z-index: -5; position: relative; }
+.rear-cheek { z-index: -10; background-color: white; position: relative; }
 </style>
 
 </head>
 <body>
 <div id="butts">
-)<span class="cheek">)</span> <span id="poop">&lt;&gt;</span> <span class="cheek">(</span>(
+<span class="fore-cheek left">)</span><span class="rear-cheek">)</span> <span id="poop">&lt;&gt;</span> <span class="rear-cheek">(</span><span class="fore-cheek right">(</span>
 </div>
 <script type="text/javascript">
 <!--
@@ -21,28 +25,28 @@ function loopPoop()
 {
   var elem = document.getElementById("poop"),
     radius = 80,
-    va = 3,             // angular velocity, 3 radians / sec
-    cx = 230,           // coordinates of orbit center
+    va = 3,
+    cx = 230,
     ang = 0,
-    currTime = 0,       // time when current frame was drawn
+    currTime = 0,
     playing = false;
 
 
   function backAndForth(time)
   {
-    var x, y,
-    dt = time - currTime;  // time since last frame
+    var x,
+    dt = time - currTime;
 
-    ang += va*dt/3000;         // angle moved at constant angular velocity
-    if (ang > 5)               // wraparound for angle
+    ang += va*dt/3000;
+    if (ang > 5)
     {
       ang -= 2*Math.PI;
     }
-    x = cx * Math.cos(ang);  // calculate coords of ball
+    x = cx * Math.cos(ang);  // MATH
 
-    elem.style.left = x + "px";          // move the element
+    elem.style.left = x + "px"; 
 
-    currTime = time;           // save the time this frame is drawn
+    currTime = time;
     if (playing)
     {
       requestAnimationFrame(backAndForth);
@@ -51,7 +55,7 @@ function loopPoop()
 
   this.play = function()
   {
-    currTime = Date.now();  // move timeLime as if currFrame just drawn
+    currTime = Date.now();
     playing = true;
     requestAnimationFrame(backAndForth);
   };
