@@ -4,7 +4,7 @@
 <title>THOUGHT CLOCK (live version)</title>
 <!-- 
 
-+//+++ooossydyyyyyydyyyyyhdmddhhhhdMMMdhhyyssooosyyhhmmmNMMMmddhhhhhhmyhyssoo+
+I<3TEHINTERNETSyyyydyyyyyhdmddhhhhdMMMdhhyyssooosyyhhmmmNMMMmddhhhhhhmyhyssoo+
 s+++++oosshdmddyyyshssyyhdNMNdhhyyhymyhysooooooysssyyhhdmNNNmhhhhhhdNNmdyyssoo
 yooossyyyhdNMMmhhyyyssossyhmhhyyssssdssoooosssshsyyysyyyhhmhhhhhhhhdNNNdhyyyss
 dysssssssshhmhhysoo+++++oooysssooooohoooooosyhdmdhysssoosshsssssssyyymyyyyyyyy
@@ -108,11 +108,13 @@ body
     background-color: white;
     color: black;
     font-family: serif; 
-    margin: 2em;
+    margin: 5%;
 }
-.thought { clear: both; font-size: 2em; color: #900; float: right; text-align: left; width: 84%; position: relative; height: 100%; }
-#clockid { height: 100%; vertical-align: center; position: relative; }
-#footer { color: #ccc; font-size: smaller; text-align: center; margin-top: 4em;}
+.thought { font-size: 2em; color: #900; float: right; text-align: left; width: 70%; position: relative; border: 4px solid #CCC; padding: 1em; border-radius: 15px; margin-bottom: 1em; }
+#clockholder { text-align: center; width: 20%; float: left; }
+#clockid { vertical-align: center; position: relative; }
+#footer, #footer a { color: #CCC; }
+#footer { font-size: smaller; text-align: center; }
 </style>
 
 </head>
@@ -122,7 +124,7 @@ body
 <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.js"></script>
 <!--[if IE]><script src="//cdn.jsdelivr.net/excanvas/r3/excanvas.compiled.js"></script><![endif]-->
 
-<!-- thank you simon -->
+<!-- thank you simon baird -->
 <script type="text/javascript">
 /**
  * CoolClock 2.1.4
@@ -491,16 +493,19 @@ function refreshThought(manualRefresh){
     {
         //new minute! find a matching statement
         lastMinChanged = m;
+        //prefix with 0
         if (m <=9)
             m = "0" + m;
         var timestr = h + ':' + m;
         var thoughtstr = getThought(timestr);
         if (thoughtstr === undefined)
-            var displaystr = ". . .";
+            var displaystr = ". . ."; //displays thinking if no thought
         else
             var displaystr = thoughtstr;
         //fade out and fade in
-        $('div.thought').fadeOut('slow').hide().text(displaystr).fadeIn('slow');
+        $('div.thought').fadeOut('slow',function () {
+            $('div.thought').hide().text(displaystr).fadeIn();
+        });
     }
 }
 
@@ -512,9 +517,17 @@ $( document ).ready(function() {
 });
 </script>
 
+  <div class="thought"></div>
 
-<div class="thought"></div>
-<canvas id="clockid" class="CoolClock:chunkySwiss:100"></canvas>
-<div id="footer">Displays the by-minute thoughts collected from the readers of <a href="http://tinyletter.com/everythingchanges">Everything Changes</a> next to ... uh ... a clock.</div>
+<div id="clockholder">
+
+  <canvas id="clockid" class="CoolClock:chunkySwiss:100"></canvas>
+
+  <canvas id="thought_bubbles"></canvas>
+
+
+  <div id="footer">This is a real-time version of the <a href="https://docs.google.com/spreadsheets/d/1R2aYt1NXnLvfOZhY4lwaoKyqzf-cNoModD_pLSp0_Q0/edit#gid=1135560376">THOUGHT CLOCK</a>, created by <a href="http://www.lauraolin.com/">Laura Olin</a> and HTML-ified by <a href="http://negatendo.net">Brett O'Connor</a>.</div>
+
+</div>
 
 </body>
