@@ -37,7 +37,7 @@
     <div class="container">
 
       <div class="col-md-4 leftCol">
-        <h1>Dig A Hole 3: The Upgrading</h1>
+        <h1>Dig A Hole : Serbia</h1>
         <p class="lead">Use this document as a way to quickly dig a hole and earn cryptocurrency.</p>
         <button type="button" class="btn btn-default pull-right" onclick="dig(1)">Dig</button>
         <button type="button" id="activateBotButton" class="btn btn-default pull-right" onclick="activateBot()">Activate Bot</button><br><br>
@@ -87,6 +87,8 @@
         return 5 * Math.pow(1.25, botUpgrades)
       }
 
+
+      //teh bot
       function activateBot() {
          if (!botActive) {
             console.log("Activating bot");
@@ -108,6 +110,18 @@
         console.log('Now digging every ' + botSpeed + 'ms');
         botUpgrades++;
         document.getElementById("botUpgrade").style.display="none"
+      }
+
+      //TODO: mercenary corporation
+      function activateMercs(num)
+      {
+
+      }
+
+      //TODO: mole people
+      function activateMolePeople(num)
+      {
+
       }
     </script>
 
